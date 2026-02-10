@@ -9,7 +9,6 @@ body {
 .container { max-width: 720px; width: 100%; }
 header h1 { color: #5865F2; margin: 0 0 12px; font-size: 1.4em; }
 
-/* Control Panel */
 .control-panel {
     background: #161b22; padding: 14px; border-radius: 10px;
     border: 1px solid #30363d; margin-bottom: 12px;
@@ -33,7 +32,6 @@ button {
 button:hover { background: #4752C4; }
 button:disabled { background: #333; cursor: not-allowed; opacity: .5; }
 
-/* Camera */
 .camera-section {
     position: relative; margin-bottom: 12px;
     border-radius: 10px; overflow: hidden; background: #000;
@@ -48,9 +46,23 @@ video { width: 100%; display: block; }
     background: rgba(255,255,255,.2); backdrop-filter: blur(5px);
     border: 1px solid rgba(255,255,255,.5); font-size: 13px; padding: 8px 16px;
 }
-.action-bar { display: flex; justify-content: center; margin-bottom: 16px; }
-.upload-btn { background: #2ea043; width: 100%; max-width: 320px; }
+.action-bar {
+    display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;
+    justify-content: center;
+}
+.upload-btn { background: #2ea043; flex: 1; max-width: 200px; }
 .upload-btn:hover { background: #238636; }
+.manual-btn { background: #8957e5; flex: 1; max-width: 200px; }
+.manual-btn:hover { background: #7048c1; }
+
+.footer-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 16px; padding-top: 12px; border-top: 1px solid #30363d;
+}
+.clear-btn { background: #da3633; font-size: .8em; padding: 8px 14px; }
+.clear-btn:hover { background: #b62324; }
+.save-indicator { color: #3ba55d; font-size: .75em; opacity: 0; transition: opacity .3s; }
+.save-indicator.show { opacity: 1; }
 
 /* ===== BINGO CARD ===== */
 .bingo-card {
@@ -72,18 +84,22 @@ video { width: 100%; display: block; }
 
 .card-body { display: flex; gap: 10px; padding: 10px; flex-wrap: wrap; }
 
-/* Image + grid overlay wrapper */
+/* Image + overlays */
 .card-image-box {
     flex: 1 1 260px; position: relative;
     background: #000; border-radius: 6px; overflow: hidden;
-    touch-action: none; /* prevent scroll while dragging handles */
-    min-height: 180px;
+    touch-action: none; min-height: 180px;
 }
-.card-image-box img {
+.card-image-box img,
+.card-image-box canvas.gen-card {
     width: 100%; display: block; pointer-events: none;
     -webkit-user-drag: none;
 }
 .card-image-box svg.grid-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+}
+.card-image-box canvas.strike-canvas {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     pointer-events: none;
 }
@@ -99,10 +115,9 @@ video { width: 100%; display: block; }
     transform: translate(-50%,-50%);
 }
 
-/* Editable grid */
 .card-grid-wrap { flex: 1 1 200px; min-width: 195px; }
 .bingo-grid {
-    display: grid; grid-template-columns: repeat(5, 1fr);
+    display: grid; grid-template-columns: repeat(5,1fr);
     gap: 3px; width: 100%;
 }
 .bingo-grid input {
@@ -120,7 +135,6 @@ video { width: 100%; display: block; }
 .bingo-grid input.ocr-low { border-color: #d29922; }
 .bingo-grid input.ocr-fail { border-color: #da3633; }
 
-/* Result */
 .card-result {
     display: flex; align-items: center; justify-content: center;
     padding: 6px 12px; gap: 10px;

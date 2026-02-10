@@ -14,8 +14,8 @@
     <div class="control-panel">
         <label>已開出號碼（逗號分隔）</label>
         <div class="input-group">
-            <input type="text" id="targetNumbers" placeholder="19, 26, 18, 28, 20" value="19, 26, 18, 28, 20">
-            <button id="strikeAllBtn">✨ 全部比對</button>
+            <input type="text" id="targetNumbers" placeholder="19, 26, 18, 28, 20" value="">
+            <button id="strikeAllBtn">✨ 比對</button>
         </div>
         <p id="statusText">載入中...</p>
     </div>
@@ -29,10 +29,16 @@
 
     <div class="action-bar">
         <input type="file" id="imageUpload" accept="image/*" multiple style="display:none;">
-        <button id="uploadBtn" class="upload-btn">📁 上傳圖片（可多選）</button>
+        <button id="uploadBtn" class="upload-btn">📁 上傳圖片</button>
+        <button id="addManualBtn" class="manual-btn">＋ 手動新增卡片</button>
     </div>
 
     <div id="cardList"></div>
+
+    <div class="footer-bar">
+        <button id="clearAllBtn" class="clear-btn">🗑 清除全部</button>
+        <span id="saveIndicator" class="save-indicator">已自動儲存</span>
+    </div>
 </div>
 <script src="js/app.js"></script>
 </body>

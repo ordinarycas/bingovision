@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>BingoVision</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <header><h1>🎯 BingoVision</h1></header>
+
+    <div class="control-panel">
+        <label>已開出號碼（逗號分隔）</label>
+        <div class="input-group">
+            <input type="text" id="targetNumbers" placeholder="19, 26, 18, 28, 20" value="19, 26, 18, 28, 20">
+            <button id="strikeAllBtn">✨ 全部比對</button>
+        </div>
+        <p id="statusText">載入中...</p>
+    </div>
+
+    <!-- Camera -->
+    <div class="camera-section" id="cameraSection">
+        <video id="cameraVideo" autoplay playsinline></video>
+        <canvas id="cameraOverlay" class="camera-overlay"></canvas>
+        <button id="captureBtn">📸 拍照新增</button>
+    </div>
+
+    <div class="action-bar">
+        <input type="file" id="imageUpload" accept="image/*" multiple style="display:none;">
+        <button id="uploadBtn" class="upload-btn">📁 上傳圖片（可多選）</button>
+    </div>
+
+    <div id="cardList"></div>
+</div>
+<script src="js/app.js"></script>
+</body>
+</html>

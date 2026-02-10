@@ -1,0 +1,1 @@
+// js/utils.js - Shared utilities (reserved for future use)

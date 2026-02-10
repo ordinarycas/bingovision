@@ -477,8 +477,11 @@ strikeAllBtn.addEventListener('click', () => {
     if (!cards.length) return alert('請先新增卡片');
 
     let totalLines = 0;
+    let cardIdx = 0;
+    const summaryParts = [];
 
     cards.forEach(card => {
+        cardIdx++;
         const id = card.id.replace('card-', '');
         const store = cardStore[id];
         if (!store) return;
@@ -500,7 +503,7 @@ strikeAllBtn.addEventListener('click', () => {
 
         // Count lines + track which ones
         let lines = 0;
-        const completedLines = []; // [{type, index}]
+        const completedLines = [];
         for (let r = 0; r < 5; r++) if (grid[r].every(v => v)) { lines++; completedLines.push({type:'row', index:r}); }
         for (let c = 0; c < 5; c++) if ([0,1,2,3,4].every(r => grid[r][c])) { lines++; completedLines.push({type:'col', index:c}); }
         if ([0,1,2,3,4].every(i => grid[i][i])) { lines++; completedLines.push({type:'diag', index:0}); }
@@ -524,12 +527,18 @@ strikeAllBtn.addEventListener('click', () => {
         detail.textContent = lines > 0 ? details.join('、') : '尚未連線';
         totalLines += lines;
 
+        // Build per-card summary
+        const lineInfo = lines > 0 ? `（${details.join('、')}）` : '';
+        summaryParts.push(`卡片 #${cardIdx}，共 ${lines} 條${lineInfo}`);
+
         // Update generated card if manual
         if (store.isManual) drawGeneratedCard(parseInt(id));
     });
 
-    statusText.innerText = `比對完成！${cards.length} 張卡，共 ${totalLines} 條線`;
-    statusText.style.color = totalLines > 0 ? '#ff4d4d' : '#3ba55d';
+    statusText.innerHTML = summaryParts.map(s => {
+        const hasLine = !s.includes('共 0 條');
+        return `<span style="color:${hasLine ? '#ff4d4d' : '#8b949e'}">${s}</span>`;
+    }).join('<br>');
     saveToStorage();
 });
 

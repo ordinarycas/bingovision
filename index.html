@@ -10,14 +10,14 @@
 <body>
 <div class="container">
     <header>
-        <h1>🎯 BingoVision <span style="font-size:.45em;color:#8b949e;font-weight:normal;">v1.0.0</span></h1>
-        <p style="margin:0 0 10px;font-size:.75em;color:#8b949e;">
-            by <strong style="color:#c9d1d9;">Jhan</strong> ·
-            <a href="https://github.com/ordinarycas/bingovision" target="_blank" rel="noopener"
-               style="color:#8ab4f8;text-decoration:none;">GitHub ↗</a>
+        <h1>🎯 BingoVision <span class="ver">v1.2.0</span></h1>
+        <p class="subtitle">
+            by <strong>Jhan</strong> ·
+            <a href="https://github.com/ordinarycas/bingovision" target="_blank" rel="noopener">GitHub ↗</a>
         </p>
     </header>
 
+    <!-- Target Numbers -->
     <div class="control-panel">
         <label>已開出號碼（逗號分隔）</label>
         <div class="input-group">
@@ -27,6 +27,36 @@
         <p id="statusText">載入中...</p>
     </div>
 
+    <!-- Settings -->
+    <div class="settings-bar">
+        <label class="toggle-label">
+            <input type="checkbox" id="freeToggle" checked>
+            <span class="toggle-slider"></span>
+            中心 FREE
+        </label>
+        <label class="toggle-label">
+            <input type="checkbox" id="debugToggle">
+            <span class="toggle-slider"></span>
+            Debug
+        </label>
+    </div>
+
+    <!-- Background Color Removal -->
+    <div class="color-panel">
+        <div class="color-panel-header">
+            <label>🎨 背景色移除（辨識前清除干擾色）</label>
+        </div>
+        <div class="color-swatches" id="colorSwatches"></div>
+        <div class="color-add-row">
+            <input type="color" id="customColorPicker" value="#888888" title="選擇顏色">
+            <button id="addColorBtn" class="add-color-btn">＋ 新增</button>
+            <label class="tolerance-label">
+                容差 <input type="range" id="colorTolerance" min="15" max="120" value="55" class="tolerance-range">
+                <span id="toleranceVal">55</span>
+            </label>
+        </div>
+    </div>
+
     <!-- Camera -->
     <div class="camera-section" id="cameraSection">
         <video id="cameraVideo" autoplay playsinline></video>
@@ -34,14 +64,45 @@
         <button id="captureBtn">📸 拍照新增</button>
     </div>
 
+    <!-- Actions -->
     <div class="action-bar">
         <input type="file" id="imageUpload" accept="image/*" multiple style="display:none;">
         <button id="uploadBtn" class="upload-btn">📁 上傳圖片</button>
         <button id="addManualBtn" class="manual-btn">＋ 手動新增卡片</button>
     </div>
 
+    <!-- Cards -->
     <div id="cardList"></div>
 
+    <!-- Debug Panel (hidden by default) -->
+    <div id="debugPanel" class="debug-panel" style="display:none;">
+        <p class="debug-title">🔬 Debug — 逐格裁切預覽</p>
+        <div id="debugContent"></div>
+    </div>
+
+    <!-- Upload Tip Modal -->
+    <div id="uploadTipModal" class="modal-overlay" style="display:none;">
+        <div class="modal-box">
+            <p class="modal-icon">📷</p>
+            <p class="modal-title">圖片建議</p>
+            <div class="modal-body">
+                <p>為獲得最佳辨識效果，建議：</p>
+                <ul>
+                    <li>圖片尺寸 <strong>≥ 800×800 px</strong></li>
+                    <li>數字清晰、對焦準確</li>
+                    <li>避免模糊、傾斜過大</li>
+                </ul>
+                <p class="modal-note">⚠️ 小於 200×200 的圖片辨識率極低，系統會自動放大但效果有限。</p>
+            </div>
+            <label class="modal-dismiss">
+                <input type="checkbox" id="uploadTipDismiss">
+                不再顯示
+            </label>
+            <button id="uploadTipOk" class="modal-btn">我知道了</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
     <div class="footer-bar">
         <button id="clearAllBtn" class="clear-btn">🗑 清除全部</button>
         <span id="saveIndicator" class="save-indicator">已自動儲存</span>

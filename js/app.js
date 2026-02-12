@@ -230,15 +230,13 @@ uploadTipModal.addEventListener('click', e => {
 // 6. Capture / Upload / Manual
 // ============================================================
 captureBtn.addEventListener('click', () => {
-    showUploadTip(() => {
-        if (!video.srcObject) return;
-        const c = document.createElement('canvas');
-        c.width = video.videoWidth; c.height = video.videoHeight;
-        c.getContext('2d').drawImage(video, 0, 0);
-        const url = c.toDataURL('image/jpeg', .8);
-        const id = addCard({ imageDataUrl: url });
-        if (tesseractReady) setTimeout(() => runOCR(id), 200);
-    });
+    if (!video.srcObject) return;
+    const c = document.createElement('canvas');
+    c.width = video.videoWidth; c.height = video.videoHeight;
+    c.getContext('2d').drawImage(video, 0, 0);
+    const url = c.toDataURL('image/jpeg', .8);
+    const id = addCard({ imageDataUrl: url });
+    if (tesseractReady) setTimeout(() => runOCR(id), 200);
 });
 
 uploadBtn.addEventListener('click', () => {
